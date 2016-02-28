@@ -8,7 +8,8 @@ A suite of `Clock` implementations that provides fluent-style access and modific
 
 # Motivation
 
-For testing `Clock`s, basically...
+- For testing `Clock` implementations.
+- For fluent-style access to `java.time.*` instances. 
 
 # Bugs/feedback
 
