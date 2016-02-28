@@ -1,4 +1,4 @@
-# Validation
+# Wallclock
 
 [![Build Status](https://travis-ci.org/h-j-k/wallclock.svg?branch=master)](https://travis-ci.org/h-j-k/wallclock)
 [![codecov.io](http://codecov.io/github/h-j-k/wallclock/coverage.svg?branch=master)](http://codecov.io/github/h-j-k/wallclock?branch=master)
