@@ -26,16 +26,19 @@ public interface FixedWallClock extends WallClock {
 
     /**
      * @param date the date to set to, not null
+     * @return itself
      */
     FixedWallClock setDate(LocalDate date);
 
     /**
      * @param time the time to set to, not null
+     * @return itself
      */
     FixedWallClock setTime(LocalTime time);
 
     /**
      * @param dateTime the date and time to set to, not null
+     * @return itself
      */
     FixedWallClock setDateTime(LocalDateTime dateTime);
 }

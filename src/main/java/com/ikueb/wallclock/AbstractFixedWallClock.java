@@ -27,7 +27,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
- * A mutable {@link WallClock} abstract class that provides a fixed instant. <br />
+ * A mutable {@link WallClock} abstract class that provides a fixed instant. <br>
  * Note: This is essentially a glorified {@link ZonedDateTime} wrapper class. There is an
  * additional underlying {@link Instant} field, but that is really a cache of calling
  * {@link ZonedDateTime#toInstant()} whenever the date and/or time is updated. The
@@ -67,7 +67,7 @@ public abstract class AbstractFixedWallClock extends Clock
     }
 
     /**
-     * Creates an instance based on the given instant and time-zone. <br />
+     * Creates an instance based on the given instant and time-zone. <br>
      * The immutable version of this can be {@link Clock#fixed(Instant, ZoneId)}.
      *
      * @param instant the instant to use, not null

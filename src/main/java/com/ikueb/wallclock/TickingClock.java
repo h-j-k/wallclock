@@ -29,7 +29,7 @@ import java.util.Objects;
 
 /**
  * An immutable, ticking {@link WallClock} implementation that also extends from
- * {@link Clock}.<br />
+ * {@link Clock}.<br>
  * Implementation note: This is essentially a wrapper for an underlying {@link Clock}
  * instance, and there are more immediate ways of obtaining date and times from one, e.g.
  * {@link LocalDate#now(Clock)}. This is meant to be a convenience class providing a
@@ -141,7 +141,7 @@ public final class TickingClock extends Clock implements WallClock, Serializable
     }
 
     /**
-     * Provides an {@code enum}-based UTC singleton {@link TickingClock}. <br />
+     * Provides an {@code enum}-based UTC singleton {@link TickingClock}. <br>
      * Useful for ensuring that there is only one {@link Clock#systemUTC()} returned per
      * classloader.
      *

@@ -56,7 +56,7 @@ public interface WallClock {
     }
 
     /**
-     * For compatibility with {@link Clock#instant()}. <br />
+     * For compatibility with {@link Clock#instant()}. <br>
      * This is to ensure that even implementations that does not extend from {@link Clock}
      * can provide an instant.
      *
@@ -65,7 +65,7 @@ public interface WallClock {
     Instant instant();
 
     /**
-     * For compatibility with {@link Clock#getZone()}. <br />
+     * For compatibility with {@link Clock#getZone()}. <br>
      * This is to ensure that even implementations that does not extend from {@link Clock}
      * can provide a time-zone.
      *

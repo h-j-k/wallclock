@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * A mutable {@link WallClock} implementation that provides a fixed instant. <br />
+ * A mutable {@link WallClock} implementation that provides a fixed instant. <br>
  * Both dates and times are settable.
  *
  * @see AbstractFixedWallClock
@@ -70,7 +70,7 @@ public final class FixedAlarmClock extends AbstractFixedWallClock
     }
 
     /**
-     * Creates an instance based on the given instant and time-zone. <br />
+     * Creates an instance based on the given instant and time-zone. <br>
      * The immutable version of this can be {@link Clock#fixed(Instant, ZoneId)}.
      *
      * @param instant the instant to use, not null

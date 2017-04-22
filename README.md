@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/h-j-k/wallclock.svg?branch=master)](https://travis-ci.org/h-j-k/wallclock)
 [![codecov.io](http://codecov.io/github/h-j-k/wallclock/coverage.svg?branch=master)](http://codecov.io/github/h-j-k/wallclock?branch=master)
-[Javadocs](https://h-j-k.github.io/wallclock/apidocs)
+[Javadocs](https://h-j-k.github.io/wallclock/javadoc)
 
 A suite of `Clock` implementations that provides fluent-style access and modifications.
 

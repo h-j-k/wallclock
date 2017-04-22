@@ -25,7 +25,7 @@ import java.time.LocalTime;
 public interface AlarmFixedWallClock extends FixedWallClock {
 
     /**
-     * Registers a listener for all updates. <br />
+     * Registers a listener for all updates. <br>
      * This will be overridden if a more specific date and/or time is given.
      *
      * @param listener the listener to register for all updates
@@ -33,7 +33,7 @@ public interface AlarmFixedWallClock extends FixedWallClock {
     void alarm(AlarmClockListener listener);
 
     /**
-     * Registers a listener for all updates happening on that date. <br />
+     * Registers a listener for all updates happening on that date. <br>
      * This overrides the 'all updates' specification.
      *
      * @param listener the listener to register
@@ -42,7 +42,7 @@ public interface AlarmFixedWallClock extends FixedWallClock {
     void alarm(AlarmClockListener listener, LocalDate dateToAlarm);
 
     /**
-     * Registers a listener for all updates happening on that time. <br />
+     * Registers a listener for all updates happening on that time. <br>
      * This overrides the 'all updates' specification.
      *
      * @param listener the listener to register
@@ -51,7 +51,7 @@ public interface AlarmFixedWallClock extends FixedWallClock {
     void alarm(AlarmClockListener listener, LocalTime timeToAlarm);
 
     /**
-     * Registers a listener for all updates happening on that date and time. <br />
+     * Registers a listener for all updates happening on that date and time. <br>
      * This overrides the 'all updates' specification.
      *
      * @param listener the listener to register
@@ -67,7 +67,7 @@ public interface AlarmFixedWallClock extends FixedWallClock {
     void snooze(AlarmClockListener listener);
 
     /**
-     * Unregisters a listener for all updates at the date. <br />
+     * Unregisters a listener for all updates at the date. <br>
      * If this is the last alarm to be unregistered, the listener is effectively
      * unregistered for all updates.
      *
@@ -77,7 +77,7 @@ public interface AlarmFixedWallClock extends FixedWallClock {
     void snooze(AlarmClockListener listener, LocalDate dateToSnooze);
 
     /**
-     * Unregisters a listener for all updates at the time. <br />
+     * Unregisters a listener for all updates at the time. <br>
      * If this is the last alarm to be unregistered, the listener is effectively
      * unregistered for all updates.
      *
@@ -87,7 +87,7 @@ public interface AlarmFixedWallClock extends FixedWallClock {
     void snooze(AlarmClockListener listener, LocalTime timeToSnooze);
 
     /**
-     * Unregisters a listener for all updates at the date and time. <br />
+     * Unregisters a listener for all updates at the date and time. <br>
      * If this is the last alarm to be unregistered, the listener is effectively
      * unregistered for all updates.
      *
