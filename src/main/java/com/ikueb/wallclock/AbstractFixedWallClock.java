@@ -17,6 +17,7 @@ package com.ikueb.wallclock;
 
 import java.io.Serializable;
 import java.time.*;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -143,6 +144,17 @@ public abstract class AbstractFixedWallClock extends Clock
         }
         zdt.set(source);
         instant.set(zdt.get().toInstant());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || (o instanceof AbstractFixedWallClock
+                && equalsZonedDateTime((AbstractFixedWallClock) o));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(zonedDateTime());
     }
 
     @Override

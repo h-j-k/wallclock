@@ -208,13 +208,12 @@ public final class FixedAlarmClock extends AbstractFixedWallClock
 
     @Override
     public boolean equals(Object o) {
-        return o == this || (o instanceof FixedAlarmClock
-                && equalsZonedDateTime((FixedAlarmClock) o));
+        return super.equals(o);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(zonedDateTime());
+        return super.hashCode();
     }
 
     @Override

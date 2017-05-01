@@ -203,12 +203,11 @@ public final class FixedClock extends AbstractFixedWallClock implements Serializ
 
     @Override
     public boolean equals(Object o) {
-        return o == this || (o instanceof FixedClock
-                && equalsZonedDateTime((FixedClock) o));
+        return super.equals(o);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(zonedDateTime());
+        return super.hashCode();
     }
 }
