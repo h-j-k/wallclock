@@ -161,17 +161,6 @@ public abstract class AbstractFixedWallClock extends Clock
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o == this || (o instanceof AbstractFixedWallClock
-                && equalsZonedDateTime((AbstractFixedWallClock) o));
-    }
-
-    @Override
-    public int hashCode() {
-        return zdt.hashCode();
-    }
-
-    @Override
     public String toString() {
         return getClass().getSimpleName() + "@" + zdt;
     }

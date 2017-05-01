@@ -84,10 +84,10 @@ public class FixedClockTest {
                 zone -> () -> new FixedClock(ZonedDateTime.now(zone)));
         return map.entrySet().stream()
                 .flatMap(x -> zones.stream()
-                                .map(zone -> Collections.singletonMap(new TestCase(
-                                        x.getKey(), x.getValue().apply(zone)), zone)))
+                        .map(zone -> Collections.singletonMap(new TestCase(
+                                x.getKey(), x.getValue().apply(zone)), zone)))
                 .flatMap(m -> m.entrySet().stream())
-                .map(entry -> new Object[] { entry.getKey(), entry.getValue() })
+                .map(entry -> new Object[]{entry.getKey(), entry.getValue()})
                 .iterator();
     }
 
@@ -143,7 +143,7 @@ public class FixedClockTest {
         Stream.of(ONE_NANO, Duration.ZERO)
                 .map(testClock::offset)
                 .forEach(v -> doTest(v, newDateZdt.toLocalDate(), initTime.plus(ONE_NANO),
-                                        newTimeZdt));
+                        newTimeZdt));
     }
 
     @DataProvider(name = "no-dst-fixed")
@@ -165,8 +165,8 @@ public class FixedClockTest {
     }
 
     private static Object[] test(String description, Supplier<FixedClock> testClockSupplier,
-            ZonedDateTime expectedZdt) {
-        return new Object[] { new TestCase(description, testClockSupplier), expectedZdt };
+                                 ZonedDateTime expectedZdt) {
+        return new Object[]{new TestCase(description, testClockSupplier), expectedZdt};
     }
 
     @Test(dataProvider = "no-dst-fixed")
@@ -176,7 +176,7 @@ public class FixedClockTest {
     }
 
     private static void doTest(FixedClock testClock, LocalDate date, LocalTime time,
-            ZonedDateTime zonedDateTime) {
+                               ZonedDateTime zonedDateTime) {
         assertThat(testClock.date(), equalTo(date));
         assertThat(testClock.time(), equalTo(time));
         assertThat(testClock.dateTime(), equalTo(date.atTime(time)));
@@ -198,5 +198,17 @@ public class FixedClockTest {
         assertThat(testClockUTC, equalTo(new FixedClock(testClockUTC)));
         assertThat(testClockUTC.hashCode(), equalTo(testClock.hashCode()));
         assertThat(testClockUTC.toString(), equalTo(testClock.toString()));
+    }
+
+    @Test(expectedExceptions = IllegalStateException.class,
+            expectedExceptionsMessageRegExp = "source to set from cannot be null\\.")
+    public void testNullConstructorParameterThrows() {
+        new FixedClock((ZonedDateTime) null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class,
+            expectedExceptionsMessageRegExp = "source to set from cannot be null\\.")
+    public void testNullSetterThrows() {
+        new FixedClock().set(null);
     }
 }

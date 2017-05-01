@@ -39,7 +39,7 @@ import java.util.Objects;
 public final class TickingClock extends Clock implements WallClock, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final Clock clock;
+    private transient final Clock clock;
 
     /**
      * Bases a new clock with the time-zone {@link ZoneOffset#UTC}.
