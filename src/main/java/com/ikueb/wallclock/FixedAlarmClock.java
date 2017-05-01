@@ -25,10 +25,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -42,7 +39,7 @@ public final class FixedAlarmClock extends AbstractFixedWallClock
 
     private static final long serialVersionUID = 1L;
 
-    private final ConcurrentHashMap<AlarmClockListener, Set<Temporal>> listeners = new ConcurrentHashMap<>();
+    private transient final ConcurrentHashMap<AlarmClockListener, Set<Temporal>> listeners = new ConcurrentHashMap<>();
 
     /**
      * Creates an instance based on the current UTC date and time.
@@ -211,15 +208,18 @@ public final class FixedAlarmClock extends AbstractFixedWallClock
 
     @Override
     public boolean equals(Object o) {
-        return o == this || (o instanceof FixedAlarmClock && equals((FixedAlarmClock) o));
+        return o == this || (o instanceof FixedAlarmClock
+                && equalsZonedDateTime((FixedAlarmClock) o));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(zonedDateTime());
     }
 
     @Override
     void set(ZonedDateTime source) {
         super.set(source);
-        if (listeners == null) {
-            return;
-        }
         listeners.forEach(1, (listener, times) -> {
             if (times.isEmpty()) {
                 listener.alarmTriggered(source);

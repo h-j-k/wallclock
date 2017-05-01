@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 /**
  * A mutable {@link WallClock} implementation that provides a fixed instant. <br>
@@ -202,6 +203,12 @@ public final class FixedClock extends AbstractFixedWallClock implements Serializ
 
     @Override
     public boolean equals(Object o) {
-        return o == this || (o instanceof FixedClock && equals((FixedClock) o));
+        return o == this || (o instanceof FixedClock
+                && equalsZonedDateTime((FixedClock) o));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(zonedDateTime());
     }
 }

@@ -16,15 +16,8 @@
 package com.ikueb.wallclock;
 
 import java.io.Serializable;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.Objects;
+import java.time.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A mutable {@link WallClock} abstract class that provides a fixed instant. <br>
@@ -38,8 +31,12 @@ public abstract class AbstractFixedWallClock extends Clock
         implements FixedWallClock, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private ZonedDateTime zdt = ZonedDateTime.now();
-    private Instant instant = zdt.toInstant();
+    private transient AtomicReference<ZonedDateTime> zdt = ref(ZonedDateTime.now());
+    private transient AtomicReference<Instant> instant = ref(zdt.get().toInstant());
+
+    private static <T> AtomicReference<T> ref(T value) {
+        return new AtomicReference<>(value);
+    }
 
     /**
      * Creates an instance based on the current UTC date and time.
@@ -71,7 +68,7 @@ public abstract class AbstractFixedWallClock extends Clock
      * The immutable version of this can be {@link Clock#fixed(Instant, ZoneId)}.
      *
      * @param instant the instant to use, not null
-     * @param zoneId the time-zone to use, not null
+     * @param zoneId  the time-zone to use, not null
      */
     public AbstractFixedWallClock(Instant instant, ZoneId zoneId) {
         this(ZonedDateTime.ofInstant(instant, zoneId));
@@ -89,7 +86,7 @@ public abstract class AbstractFixedWallClock extends Clock
     /**
      * Creates an instance based on the date's midnight at the specified time-zone.
      *
-     * @param date the date to use, not null
+     * @param date   the date to use, not null
      * @param zoneId the time-zone to use, not null
      */
     public AbstractFixedWallClock(LocalDate date, ZoneId zoneId) {
@@ -108,7 +105,7 @@ public abstract class AbstractFixedWallClock extends Clock
     /**
      * Creates an instance based on the time today at the specified time-zone.
      *
-     * @param time the time to use, not null
+     * @param time   the time to use, not null
      * @param zoneId the time-zone to use, not null
      */
     public AbstractFixedWallClock(LocalTime time, ZoneId zoneId) {
@@ -128,7 +125,7 @@ public abstract class AbstractFixedWallClock extends Clock
      * Creates an instance based on the date and time at the specified time-zone.
      *
      * @param dateTime the date and time to use, not null
-     * @param zoneId the time-zone to use, not null
+     * @param zoneId   the time-zone to use, not null
      */
     public AbstractFixedWallClock(LocalDateTime dateTime, ZoneId zoneId) {
         this(ZonedDateTime.of(dateTime, zoneId));
@@ -138,24 +135,35 @@ public abstract class AbstractFixedWallClock extends Clock
      * Creates an instance based on the date, time and specified time-zone.
      *
      * @param source the date, time and time-zone to use, not null
+     * @throws IllegalStateException if {@code source} is {@code null}
      */
     public AbstractFixedWallClock(ZonedDateTime source) {
-        set(source);
+        if (source == null) {
+            throw new IllegalStateException("source to set from cannot be null.");
+        }
+        zdt.set(source);
+        instant.set(zdt.get().toInstant());
     }
 
     @Override
     public ZonedDateTime zonedDateTime() {
-        return zdt;
+        return zdt.get();
     }
 
     @Override
     public Instant instant() {
-        return instant;
+        return instant.get();
     }
 
     @Override
     public ZoneId getZone() {
-        return zdt.getZone();
+        return zdt.get().getZone();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || (o instanceof AbstractFixedWallClock
+                && equalsZonedDateTime((AbstractFixedWallClock) o));
     }
 
     @Override
@@ -172,17 +180,20 @@ public abstract class AbstractFixedWallClock extends Clock
      * @param clock the other clock to test
      * @return {@code true} if underlying {@link ZonedDateTime} instances are equal
      */
-    boolean equals(AbstractFixedWallClock clock) {
-        return zdt.equals(clock.zonedDateTime());
+    boolean equalsZonedDateTime(AbstractFixedWallClock clock) {
+        return clock != null && zdt.get().equals(clock.zonedDateTime());
     }
 
     /**
      * @param source the source to set to, not null
+     * @throws IllegalArgumentException if {@code source} is {@code null}
      */
     void set(ZonedDateTime source) {
-        synchronized (zdt) {
-            zdt = Objects.requireNonNull(source);
-            instant = zdt.toInstant();
+        if (source != null) {
+            zdt.set(source);
+            instant.set(zdt.get().toInstant());
+            return;
         }
+        throw new IllegalArgumentException("source to set from cannot be null.");
     }
 }
