@@ -16,21 +16,14 @@
 package com.ikueb.wallclock;
 
 import java.io.Serializable;
-import java.time.Clock;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Objects;
 
 /**
  * An immutable, ticking {@link WallClock} implementation that also extends from
  * {@link Clock}.<br>
- * Implementation note: This is essentially a wrapper for an underlying {@link Clock}
+ *
+ * @implNote This is essentially a wrapper for an underlying {@link Clock}
  * instance, and there are more immediate ways of obtaining date and times from one, e.g.
  * {@link LocalDate#now(Clock)}. This is meant to be a convenience class providing a
  * non-fixed implementation of {@link WallClock}. {@link #atUTC()} is likely to be more
@@ -107,7 +100,7 @@ public final class TickingClock extends Clock implements WallClock, Serializable
      *
      * @param duration the duration to offset, not null
      * @return either a new {@link WallClock} with a non-zero {@code duration} offset,
-     *         else this
+     * else this
      */
     @Override
     public TickingClock offset(Duration duration) {
@@ -132,7 +125,6 @@ public final class TickingClock extends Clock implements WallClock, Serializable
 
     /**
      * An enum-driven singleton instance for a UTC-based {@link TickingClock}.
-     *
      */
     private enum UTCTickingClock {
         INSTANCE;
