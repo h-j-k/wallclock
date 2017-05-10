@@ -39,7 +39,7 @@ public final class FixedAlarmClock extends AbstractFixedWallClock
 
     private static final long serialVersionUID = 1L;
 
-    private transient final ConcurrentHashMap<AlarmClockListener, Set<Temporal>> listeners = new ConcurrentHashMap<>();
+    private final transient ConcurrentHashMap<AlarmClockListener, Set<Temporal>> listeners = new ConcurrentHashMap<>();
 
     /**
      * Creates an instance based on the current UTC date and time.
